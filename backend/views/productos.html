@@ -11,34 +11,35 @@
 
 <body class="body_producto">
     <div class="producto_container">
-        <form>
+        <form action="../productos.php" method="POST">
             <h1>Registro de productos</h1>
-            <label for="codigo_producto">Codigo del producto:</label>
-            <input type="text" id="codigo_producto" name="codigo_producto" required>
             <label for="nombre_producto">Nombre del Producto:</label>
             <input type="text" id="nombre_producto" name="nombre_producto" required>
-            <label for="marca_producto">Marca del Producto:</label>
-            <input type="text" id="marca_producto" name="marca_producto" required>
-            <label for="imagen_producto">Imagen del Producto:</label>
-            <input type="file" id="imagen_producto" name="imagen_producto" required>
             <label for="descripcion_producto">Descripción del Producto:</label>
             <textarea id="descripcion_producto" name="descripcion_producto" required></textarea>
             <label for="precio_producto">Precio del Producto:</label>
             <input type="number" id="precio_producto" name="precio_producto" step="0.01" required>
             <label for="categoria_producto">Categoría del Producto:</label>
             <select id="categoria_producto" name="categoria_producto" required>
-                <!-- Las opciones de categoría deberían ser generadas dinámicamente desde la base de datos.
-                    está solo es una representación temporal -->
-                <option value="1">Laptops</option>
-                <option value="2">Componentes</option>
-                <option value="3">Teclados</option>
-                <!-- Más opciones aquí -->
+                <?php
+                // Código PHP para listar las categorías en el menú desplegable
+                include '../class/autoload.php';
+                $db = new Database();
+                $conn = $db->connect();
+                $query = 'SELECT * FROM categorias';
+                $stmt = $conn->prepare($query);
+                $stmt->execute();
+                $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($categorias as $categoria) {
+                    echo '<option value="'.$categoria['id'].'">'.$categoria['nombre'].'</option>';
+                }
+                ?>
             </select>
             <div class="buttons">
                 <button type="reset">Cancelar</button>
                 <button type="submit">Guardar</button>
+            </div>
         </form>
-    </div>
     </div>
     <script src="/assets/js/validaciones.js"></script>
 </body>

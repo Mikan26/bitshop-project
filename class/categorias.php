@@ -1,13 +1,33 @@
 <?php
-class Categoria {
-    public $id;
-    public $nombre;
+/* @autor Luia Veramendi */
 
-    public function __construct($id, $nombre) {
-        $this->id = $id;
+class Categoria
+{
+    private $id;
+    private $nombre;
+    private $db;
+
+    public function __construct($nombre)
+    {
         $this->nombre = $nombre;
+        $this->db = new Database();
     }
 
-    // Métodos para interactuar con la base de datos, como guardar, actualizar, eliminar, etc.
+    public function guardar()
+    {
+        $conn = $this->db->connect();
+        $query = 'INSERT INTO categorias (nombre) VALUES (:nombre)';
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':nombre', $this->nombre);
+        $stmt->execute();
+    }
+
+    public function eliminar($id)
+    {
+        $conn = $this->db->connect();
+        $query = 'DELETE FROM categorias WHERE id = :id';
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
 }
-?>

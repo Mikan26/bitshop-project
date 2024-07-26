@@ -10,18 +10,25 @@
 </head>
 
 <body class="body_producto">
-    <div class="producto_container">
-        <form action="../productos.php" method="POST">
-            <h1>Registro de productos</h1>
-            <label for="nombre_producto">Nombre del Producto:</label>
-            <input type="text" id="nombre_producto" name="nombre_producto" required>
-            <label for="descripcion_producto">Descripción del Producto:</label>
-            <textarea id="descripcion_producto" name="descripcion_producto" required></textarea>
-            <label for="precio_producto">Precio del Producto:</label>
-            <input type="number" id="precio_producto" name="precio_producto" step="0.01" required>
-            <label for="categoria_producto">Categoría del Producto:</label>
-            <select id="categoria_producto" name="categoria_producto" required>
-                <?php
+    <div class="header">
+        <div class="header-right">
+            <a href="categorias.html">Categorías</a>
+            <a href="productos.html">Productos</a>
+            <a href="lista_categorias.php">lista categorias</a>
+            <a href="lista_productos.php">lista Productos</a>
+        </div>
+        <div class="producto_container">
+            <form action="../productos.php" method="post">
+                <h1>Registro de productos</h1>
+                <label for="nombre_producto">Nombre del Producto:</label>
+                <input type="text" id="nombre_producto" name="nombre_producto" required>
+                <label for="descripcion_producto">Descripción del Producto:</label>
+                <textarea id="descripcion_producto" name="descripcion_producto" required></textarea>
+                <label for="precio_producto">Precio del Producto:</label>
+                <input type="number" id="precio_producto" name="precio_producto" step="0.01" required>
+                <label for="categoria_producto">Categoría del Producto:</label>
+                <select id="categoria_producto" name="categoria_producto" required>
+                    <?php
                 // Código PHP para listar las categorías en el menú desplegable
                 include '../class/autoload.php';
                 $db = new Database();
@@ -34,14 +41,15 @@
                     echo '<option value="'.$categoria['id'].'">'.$categoria['nombre'].'</option>';
                 }
                 ?>
-            </select>
-            <div class="buttons">
-                <button type="reset">Cancelar</button>
-                <button type="submit">Guardar</button>
-            </div>
-        </form>
+                </select>
+                <div class="buttons">
+                    <button type="reset">Cancelar</button>
+                    <button type="submit">Guardar</button>
+                </div>
+            </form>
+        </div>
+        <script src="/assets/js/validaciones.js"></script>
     </div>
-    <script src="/assets/js/validaciones.js"></script>
 </body>
 
 </html>
